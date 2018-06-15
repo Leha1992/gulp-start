@@ -10,13 +10,9 @@ const gulp              = require('gulp'),
 
 const isProduction = argv.prod;
 
-function getTask (task) {
-	return require(`./tasks/${task}`);
-}
-
 gulp.task('styl', require('./tasks/stylus')(gulp,plugins,isProduction,combine,browserSync,nib,resolver));
 gulp.task('img', require('./tasks/img')(gulp,plugins,browserSync));
-gulp.task('html', require('./tasks/html')(gulp,plugins,browserSync));
+gulp.task('html', require('./tasks/html')(gulp,plugins,browserSync,isProduction));
 gulp.task('fonts', require('./tasks/fonts')(gulp,plugins,browserSync));
 gulp.task('watch', require('./tasks/watch')(gulp));
 gulp.task('serve', require('./tasks/serve')(browserSync));

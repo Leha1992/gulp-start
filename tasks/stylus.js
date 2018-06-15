@@ -15,8 +15,11 @@ module.exports = function (gulp,plugins,isProduction,combine,browserSync,nib,res
                     cascade: false
                 }), 
                 plugins.if(!isProduction,plugins.sourcemaps.write()),
-                plugins.if(isProduction, combine(plugins.cleanCss(),plugins.rename('main.min.css'))),
+                plugins.if(isProduction, combine(plugins.cleanCss(),plugins.rev())),
                 gulp.dest('dist/styles'),
+                plugins.if(isProduction, plugins.rev.manifest('css.json')),                  
+                gulp.dest('manifest'), 
+                  
                 browserSync.stream()
         ).on('error',plugins.notify.onError(function (err) {
             return {
